@@ -1,8 +1,9 @@
+package ants.utils;
 import javax.swing.JFrame;
 
 public class Utilities {
 	public static JFrame frame;
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return frame;
 	}
 }
