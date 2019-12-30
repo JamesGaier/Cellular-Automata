@@ -4,12 +4,22 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 public class Simulation extends Canvas implements Runnable{
+
 	private static final long serialVersionUID = 1L;
 	private boolean running;
 	private Thread gameThread;
-	Grid myGrid;
+	private Grid myGrid;
+	private Rule90Grid rule90Grid;
+	private Mode mode;
+	public Simulation(Mode mode) {
+		this.mode = mode;
+	}
 	public void init() {
-		 myGrid = new Grid(getWidth(),getHeight(), 10);
+		int size = (mode == Mode.LANGTON) ? 10:1;
+		myGrid = new Grid(getWidth(),getHeight(), size, mode);
+		if(mode != Mode.LANGTON) {
+			rule90Grid = new Rule90Grid(getWidth(), getHeight(), myGrid);			
+		}
 	}
 	public void start() {
 		if(running)
@@ -38,6 +48,7 @@ public class Simulation extends Canvas implements Runnable{
 		
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
+		
 		myGrid.render(g2d);
 		
 		bs.show();

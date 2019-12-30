@@ -6,12 +6,22 @@ public class Window extends JFrame{
 	private static final long serialVersionUID = 1L;
 	KeyController kc;
 	Simulation sim;
-	public void init() {
+	public void init(String title) throws Exception {
+		Mode mode = null;
+		if(title == "Langton's Ants") {
+			mode = Mode.LANGTON;
+		}
+		else if(title == "Rule90") {
+			mode = Mode.RULE90;
+		}
+		else {
+			throw new Exception("Invalid mode");
+		}
 		kc = new KeyController();
-		sim = new Simulation();
+		sim = new Simulation(mode);
 	}
-	public Window(int width, int height, String title) {
-		init();
+	public Window(int width, int height, String title) throws Exception {
+		init(title);
 		add(sim);
 		setTitle(title);
 		setFocusable(true);
@@ -26,8 +36,8 @@ public class Window extends JFrame{
 		sim.start();
 		Utilities.frame = this;
 	}
-	public Window(String title) {
-		init();
+	public Window(String title) throws Exception {
+		init(title);
 		add(sim);
 		setFocusable(true);
 		addKeyListener(kc);

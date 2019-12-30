@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class Grid {
 	private Cell[][] grid;
 	private Ant ant;
-	public Grid(int width, int height,int scale) {
+	public Grid(int width, int height,int scale, Mode mode) {
 		grid = new Cell[(width/scale)+2][(height/scale)+2];
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j < grid[0].length; j++) {
@@ -15,8 +15,10 @@ public class Grid {
 		}
 		int startX = grid.length/2;
 		int startY = grid[0].length/2;
-		ant = new Ant(startX,startY,this,Utilities.frame);
-		ant.start();
+		if(mode == Mode.LANGTON) {
+			ant = new Ant(startX,startY,this,Utilities.frame);
+			ant.start();
+		}
 	}
 	public Cell[][] getGrid(){
 		return grid;

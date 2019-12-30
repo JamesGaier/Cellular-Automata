@@ -33,6 +33,7 @@ public class Rule90Grid implements Runnable{
 	}
 	@Override
 	public void run() {
+		System.out.println("Pass");
 		while(true) {
 			boolean[][] temp = shapeGrid();
 			for(int i = 1; i < temp.length; i++) {
